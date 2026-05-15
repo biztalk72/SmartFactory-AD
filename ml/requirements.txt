@@ -1,0 +1,18 @@
+# ── Anomaly Detection ──
+anomalib>=1.2.0
+torch>=2.2.0
+torchvision>=0.17.0
+lightning>=2.2.0
+
+# ── Image Processing ──
+Pillow>=10.0.0
+opencv-python-headless>=4.9.0
+numpy>=1.26.0
+matplotlib>=3.8.0
+
+# ── VLM (local inference) ──
+transformers>=4.45.0
+accelerate>=0.30.0
+
+# ── OpenAI API (cloud VLM) ──
+openai>=1.30.0
