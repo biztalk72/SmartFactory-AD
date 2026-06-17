@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.database import engine, Base
-from app.routers import stations, inspections, inference
+from app.routers import stations, inspections, inference, equipment
 
 settings = get_settings()
 
@@ -40,6 +40,7 @@ app.add_middleware(
 app.include_router(stations.router, prefix="/api/v1")
 app.include_router(inspections.router, prefix="/api/v1")
 app.include_router(inference.router, prefix="/api/v1")
+app.include_router(equipment.router, prefix="/api/v1")
 
 
 @app.get("/health")

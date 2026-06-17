@@ -125,6 +125,42 @@ class HACCPRecordResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
+# ── EquipmentReading ──
+
+
+class EquipmentReadingCreate(BaseModel):
+    equipment_id: str
+    equipment_name: str = ""
+    line_name: str = ""
+    sensor_type: str  # vibration | temperature | current | cycle_time | robot_state | custom
+    sensor_unit: str = ""
+    value: float
+    baseline_value: Optional[float] = None
+    station_id: Optional[str] = None
+    lot_number: str = ""
+    raw_payload: str = ""
+    recorded_at: Optional[datetime] = None
+
+
+class EquipmentReadingResponse(BaseModel):
+    id: UUID
+    equipment_id: str
+    equipment_name: str
+    line_name: str
+    sensor_type: str
+    sensor_unit: str
+    value: float
+    baseline_value: Optional[float]
+    deviation_pct: Optional[float]
+    is_anomaly: bool
+    alert_triggered: bool
+    lot_number: str
+    recorded_at: datetime
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
 # ── Health ──
 
 

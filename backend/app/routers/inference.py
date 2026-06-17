@@ -22,8 +22,10 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from PIL import Image
 
+from sqlalchemy import select
+
 from app.core.database import get_db
-from app.models.models import InspectionResult, VLMExplanation
+from app.models.models import InspectionResult, InspectionStation, VLMExplanation, HACCPRecord
 from app.services.ad_engine import AnomalyDetector, heatmap_to_bytes
 from app.services.vlm_service import VLMService
 
@@ -174,6 +176,45 @@ async def run_inspection(
             vlm_model=vlm_result.vlm_model,
             generation_time_ms=vlm_result.generation_time_ms,
         )
+
+    # 6. Auto-create HACCP record if this is a CCP station and an anomaly was found
+    #    HACCP Principle 2: Identify Critical Control Points
+    #    Principle 4: Establish monitoring procedures → log actual vs critical limit
+    if ad_result.is_anomaly and station_uuid:
+        station_result = await db.execute(
+            select(InspectionStation).where(InspectionStation.id == station_uuid)
+        )
+        station_obj = station_result.scalar_one_or_none()
+        if station_obj and station_obj.is_ccp:
+            within_limit = (
+                ad_result.anomaly_score <= station_obj.critical_limit
+                if station_obj.critical_limit is not None
+                else None
+            )
+            corrective = (
+                vlm_out.recommended_action
+                if vlm_out and vlm_out.recommended_action
+                else "Manual inspection required — CCP deviation detected."
+            )
+            haccp_rec = HACCPRecord(
+                station_id=station_uuid,
+                principle=4,  # HACCP Principle 4: Monitoring
+                description=(
+                    f"Automated CCP monitoring — anomaly detected by {ad_result.model_name}. "
+                    f"Defect: {vlm_out.defect_type if vlm_out else 'unknown'}. "
+                    f"Location: {vlm_out.location if vlm_out else 'unspecified'}."
+                ),
+                critical_limit=station_obj.critical_limit,
+                actual_value=ad_result.anomaly_score,
+                is_within_limit=within_limit,
+                corrective_action=corrective,
+                verified_by="system:SmartFactory-AD",
+            )
+            db.add(haccp_rec)
+            logger.info(
+                "Auto-created HACCP record for CCP station %s (score=%.3f, within_limit=%s)",
+                station_uuid, ad_result.anomaly_score, within_limit,
+            )
 
     await db.commit()
 
