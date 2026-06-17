@@ -143,6 +143,53 @@ class Alert(Base):
     result = relationship("InspectionResult", back_populates="alerts")
 
 
+class EquipmentReading(Base):
+    """Telemetry reading from a physical piece of equipment.
+
+    Supports any sensor type: vibration, temperature, current, cycle-time,
+    robot/AMR state, etc.  Each row is one timestamped measurement from one
+    sensor on one piece of equipment.
+    """
+    __tablename__ = "equipment_readings"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    station_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("inspection_stations.id"),
+        nullable=True,
+        comment="Optional link to inspection station on the same line",
+    )
+    equipment_id = Column(
+        String(200), nullable=False, index=True,
+        comment="External equipment / asset ID (e.g. PLC tag, ERP asset code)",
+    )
+    equipment_name = Column(String(200), default="")
+    line_name = Column(String(200), default="", index=True)
+    sensor_type = Column(
+        String(100), nullable=False,
+        comment="vibration | temperature | current | cycle_time | robot_state | custom",
+    )
+    sensor_unit = Column(String(50), default="", comment="e.g. mm/s, °C, A, ms")
+    value = Column(Float, nullable=False)
+    baseline_value = Column(Float, nullable=True, comment="Expected normal value")
+    deviation_pct = Column(
+        Float, nullable=True,
+        comment="(value - baseline) / baseline * 100; positive = above baseline",
+    )
+    is_anomaly = Column(
+        Boolean, default=False,
+        comment="True when |deviation_pct| exceeds station anomaly_threshold",
+    )
+    alert_triggered = Column(Boolean, default=False)
+    lot_number = Column(String(100), default="")
+    raw_payload = Column(Text, default="", comment="Original JSON payload from edge device")
+    recorded_at = Column(
+        DateTime, nullable=False, default=datetime.utcnow,
+        comment="Timestamp of the physical measurement (may differ from created_at)",
+    )
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
 
