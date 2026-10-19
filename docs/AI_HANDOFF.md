@@ -31,4 +31,4 @@
 4. 단위 테스트부터 실행하고 외부 서비스·통합 테스트는 별도로 검증한다.
 5. 미완료 작업과 검증 실패를 해결한 뒤 배포한다. 이번 문서를 기능 구현·운영 복원 완료의 증거로 사용하지 않는다.
 
-공통 플러그인·스킬·환경 복원 자료. https://github.com/biztalk72/agent-development-environment
+공통 플러그인·스킬·환경 복원 자료. https://github.com/biztalk72/agent-harness/tree/backup/final-20261019-environment

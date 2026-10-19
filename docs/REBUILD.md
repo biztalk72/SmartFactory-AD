@@ -43,4 +43,4 @@
 아래 목록은 안전 정책으로 선택하지 않은 파일이다. 이미 과거 이력에 들어 있는 파일을 삭제하거나 이력을 정리했다는 뜻은 아니다. 생성물은 재생성하고, 원본 데이터·모델·비밀값은 별도 복원한다.
 - 선택 파일 목록에서 별도 제외 항목을 발견하지 않았다. gitignore된 실제 비밀·데이터가 없다는 뜻은 아니다.
 
-공통 개발환경 복원 자료. https://github.com/biztalk72/agent-development-environment
+공통 개발환경 복원 자료. https://github.com/biztalk72/agent-harness/tree/backup/final-20261019-environment
