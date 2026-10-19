@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-19",
+  "scope": "static checks; not full build or tests",
+  "results": [
+    {
+      "path": "backend/app/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/config.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/database.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/main.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/models/models.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/inference.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/inspections.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/stations.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/schemas/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/schemas/schemas.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/ad_engine.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/storage.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/vlm_service.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/migrations/env.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/conftest.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_ad_engine.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_inference.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_vlm_service.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "ml/scripts/download_dataset.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "ml/scripts/train.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    }
+  ]
+}

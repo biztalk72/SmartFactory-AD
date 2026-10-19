@@ -1,0 +1,202 @@
+{
+  "id": "smartfactory-ad",
+  "manifests": [
+    "backend/Dockerfile",
+    "backend/requirements.txt",
+    "docker-compose.yml",
+    "ml/requirements.txt"
+  ],
+  "locks": [],
+  "packages": [],
+  "python": [],
+  "commands": [],
+  "providers": [
+    "openai>=1.30.0"
+  ],
+  "env_names": [
+    "ACCESS_TOKEN_EXPIRE_MINUTES",
+    "AD_CHECKPOINT_PATH",
+    "AD_DEVICE",
+    "AD_MODEL",
+    "ALERT_EMAIL_FROM",
+    "ALERT_EMAIL_SMTP_HOST",
+    "ALERT_EMAIL_SMTP_PORT",
+    "ALERT_WEBHOOK_URL",
+    "ALGORITHM",
+    "BACKEND_PORT",
+    "DATABASE_URL",
+    "MINIO_BUCKET",
+    "MINIO_ENDPOINT",
+    "MINIO_ROOT_PASSWORD",
+    "MINIO_ROOT_USER",
+    "MINIO_USE_SSL",
+    "POSTGRES_DB",
+    "POSTGRES_HOST",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_PORT",
+    "POSTGRES_USER",
+    "REDIS_URL",
+    "SECRET_KEY",
+    "VLM_PROVIDER"
+  ],
+  "portability": [],
+  "validation": [
+    {
+      "path": "backend/app/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/config.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/core/database.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/main.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/models/models.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/inference.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/inspections.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/routers/stations.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/schemas/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/schemas/schemas.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/ad_engine.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/storage.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/app/services/vlm_service.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/migrations/env.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/__init__.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/conftest.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_ad_engine.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_inference.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "backend/tests/test_vlm_service.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "ml/scripts/download_dataset.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    },
+    {
+      "path": "ml/scripts/train.py",
+      "check": "Python AST syntax",
+      "status": "pass"
+    }
+  ],
+  "languages": {
+    ".py": 25,
+    ".md": 2,
+    ".ini": 2,
+    ".txt": 2,
+    ".example": 1,
+    ".mako": 1,
+    ".yml": 1
+  },
+  "services": [
+    {
+      "source": "docker-compose.yml",
+      "image": "postgres:15-alpine"
+    },
+    {
+      "source": "docker-compose.yml",
+      "image": "redis:7-alpine"
+    },
+    {
+      "source": "docker-compose.yml",
+      "image": "minio/minio:latest"
+    }
+  ],
+  "description": "- **비전 기반 이상탐지 / Vision-based Anomaly Detection** — Anomalib (PatchCore / EfficientAD) 기반, MVTec AD 오픈데이터 사전학습 - **VLM 결함 설명 / VLM Defect Explanation** — 결함의 유형·위치·원인·권장조치를 자연어로 자동 생성 (GPT-4o / Qwen2.5-VL) - **HACCP 7원칙 자동화 / HACCP 7 Principles Automation** — CCP 모니터링, 감사 로그, 보고서 자동 생성 - **실시간 Alert / Real-time Alerts** — WebSocket 대시보드 + Webhook (Slack/Teams) + MQTT Andon 연동 - **대시보드 / Dashboard** — 실시간 모니터링, KPI 분석, HACCP 준수 현황 - **MES 연동 / MES Integration** — REST API 기반 양방향 데이터 교환",
+  "progress_sources": [],
+  "top_dirs": {
+    "backend": 28,
+    "ml": 3
+  },
+  "links": [],
+  "make_targets": [],
+  "description_source": "README.md"
+}
